@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="p-4 bg-white rounded shadow-sm border">
+            <h2>Panel de Tareas</h2>
+            <p class="text-muted mb-0">Bienvenido, <strong>{{ session['username'] }}</strong>. Organiza y gestiona tus pendientes de forma eficiente.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Formulario para Nueva Tarea -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h4 class="card-title mb-3 text-primary">Nueva Tarea</h4>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Título de la tarea</label>
+                        <input type="text" name="title" class="form-control" placeholder="Ej. Estudiar Flask" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción</label>
+                        <textarea name="description" class="form-control" rows="3" placeholder="Detalles de la actividad..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Agregar Tarea</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lista de Tareas (Organizador) -->
+    <div class="col-md-8">
+        <h4 class="mb-3">Tus Tareas Pendientes y Activas</h4>
+        
+        {% if not records %}
+            <div class="alert alert-info text-center" role="alert">
+                No tienes tareas registradas. ¡Crea una para comenzar!
+            </div>
+        {% endif %}
+
+        <div class="row">
+            {% for record in records %}
+            <div class="col-md-6 mb-3">
+                <div class="card shadow-sm h-100 border-start border-4 {% if record.status == 'Completada' %}border-success bg-light{% else %}border-primary{% endif %}">
+                    <div class="card-body d-flex flex-column justify-content-between">
+                        <div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h5 class="card-title mb-0 {% if record.status == 'Completada' %}text-decoration-line-through text-muted{% endif %}">
+                                    {{ record.title }}
+                                </h5>
+                                <span class="badge {% if record.status == 'Completada' %}bg-success{% else %}bg-warning text-dark{% endif %}">
+                                    {{ record.status }}
+                                </span>
+                            </div>
+                            <p class="card-text text-secondary small">{{ record.description }}</p>
+                        </div>
+                        
+                        <div class="mt-3 pt-2 border-top d-flex justify-content-between align-items-center">
+                            <a href="{{ url_for('toggle_record', id=record.id) }}" class="btn btn-sm {% if record.status == 'Completada' %}btn-outline-secondary{% else %}btn-outline-success{% endif %}">
+                                {% if record.status == 'Completada' %}Marcar Pendiente{% else %}Completar{% endif %}
+                            </a>
+                            <div>
+                                <a href="{{ url_for('edit_record', id=record.id) }}" class="btn btn-sm btn-outline-primary">Editar</a>
+                                <a href="{{ url_for('delete_record', id=record.id) }}" class="btn btn-sm btn-outline-danger">Borrar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

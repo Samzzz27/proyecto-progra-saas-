@@ -1,0 +1,73 @@
+/* Paleta de tonos rosados y aesthetic para el SaaS */
+:root {
+    --bs-primary: #d63384;
+    --bs-primary-rgb: 214, 51, 132;
+}
+
+body {
+    background: linear-gradient(135deg, #fff0f3 0%, #fde2e4 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4a4a4a;
+}
+
+/* Barra de navegación superior */
+.navbar {
+    background-color: #9b224c !important;
+    box-shadow: 0 2px 8px rgba(155, 34, 76, 0.2);
+}
+
+.navbar-brand, .nav-link {
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    color: #ffd1dc !important;
+}
+
+/* Tarjetas y contenedores con bordes suaves */
+.card {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(214, 51, 132, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* Botones personalizados */
+.btn-primary {
+    background-color: #d63384;
+    border-color: #d63384;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #be2b73;
+    border-color: #be2b73;
+}
+
+/* Insignias de estado personalizadas */
+.badge.bg-warning {
+    background-color: #ffccd5 !important;
+    color: #721c24 !important;
+}
+
+.badge.bg-success {
+    background-color: #d8f3dc !important;
+    color: #1b4332 !important;
+}
+
+/* Campos de formulario */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #f0b4c0;
+}
+
+.form-control:focus {
+    border-color: #d63384;
+    box-shadow: 0 0 0 0.25rem rgba(214, 51, 132, 0.25);
+}
